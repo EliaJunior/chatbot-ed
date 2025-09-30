@@ -1,95 +1,48 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// src/app/page.tsx - REVISADO
+import Image from 'next/image';
+import styles from './page.module.css';
+import Link from 'next/link';
+
+// Componente Navbar agora usando CSS Modules
+function Navbar() {
+  return (
+    <nav className={styles.navbar}>
+      <div className={styles.navbarLogo}>
+        {/* <Image src="/logo-ed-engenharia.png" width={32} height={32} alt="Logo ED Engenharia" /> */}
+        <span>ED Engenharia</span>
+      </div>
+      <div className={styles.navbarActions}>
+        <Link href="/admin/painel" className={styles.navbarLink}>
+          Acessar Painel
+        </Link>
+        <Link href="/auth/signup" className={styles.navbarButton}>
+          Criar Conta
+        </Link>
+      </div>
+    </nav>
+  );
+}
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+    <main className={styles.main}>
+      <Navbar />
+      <section className={styles.heroSection}>
+        <h1 className={styles.headline}>
+          Automatize seus Orçamentos. Acelere suas Vendas.
+        </h1>
+        <p className={styles.subheadline}>
+          A ED Engenharia transforma listas de materiais em orçamentos instantâneos via WhatsApp, liberando sua equipe para focar no que realmente importa: vender.
+        </p>
+        <div className={styles.ctaContainer}>
+          <Link href="/auth/signup" className={styles.primaryButton}>
+            Comece de Graça
+          </Link>
+          <Link href="/contact" className={styles.secondaryButton}>
+            Fale Conosco
+          </Link>
         </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+    </main>
   );
 }

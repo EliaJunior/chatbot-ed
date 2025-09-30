@@ -1,0 +1,19 @@
+/* O container não precisa mais de display:flex, pois a sidebar é 'fixed' */
+.layoutContainer {
+  /* Apenas garante a cor de fundo */
+  background-color: var(--background);
+}
+
+.mainContent {
+  width: auto; /* Ocupa o espaço disponível */
+  min-height: 100vh;
+  padding: 2rem;
+  /* A margem à esquerda se ajusta à sidebar */
+  margin-left: 68px; /* Largura da sidebar recolhida */
+  transition: margin-left 0.2s ease-in-out;
+}
+
+/* Quando o layout contiver uma sidebar expandida, a margem aumenta */
+.mainContent.expanded {
+  margin-left: 256px; /* Largura da sidebar expandida */
+}

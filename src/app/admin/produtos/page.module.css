@@ -1,0 +1,129 @@
+/* src/app/admin/produtos/page.module.css - REVISADO PARA TABELA */
+
+.title {
+  font-size: 1.875rem; /* 30px */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+.tableCard {
+  background-color: var(--card);
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  overflow: hidden; /* Garante que a tabela não vaze para fora do card arredondado */
+}
+
+.tableHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.cardTitle {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.headerActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* --- Estilos dos Botões --- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.primaryButton {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+.primaryButton:hover {
+  background-color: color-mix(in srgb, var(--primary) 90%, black);
+}
+
+.dangerButton {
+  background-color: var(--destructive);
+  color: var(--primary-foreground);
+}
+.dangerButton:hover {
+  background-color: color-mix(in srgb, var(--destructive) 90%, black);
+}
+
+/* --- Estilos da Tabela --- */
+.table {
+  width: 100%;
+  border-collapse: collapse; /* Remove espaço entre as células */
+  text-align: left;
+}
+
+.tr {
+  border-bottom: 1px solid var(--border);
+}
+.tr:last-child {
+  border-bottom: none;
+}
+
+.th {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem; /* 12px */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--secondary);
+  font-weight: 600;
+}
+
+.td {
+  padding: 1rem 1.5rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  vertical-align: middle;
+}
+
+.checkboxCell {
+  width: 1%;
+  padding-right: 1rem;
+}
+
+.productNameCell {
+  font-weight: 500;
+}
+
+.productDescriptionCell {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.actionsCell {
+  width: 1%;
+  text-align: right;
+}
+
+.actionsButton {
+  background: none;
+  color: var(--secondary);
+  padding: 0.25rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.actionsButton:hover {
+  background-color: var(--background);
+  color: var(--foreground);
+}

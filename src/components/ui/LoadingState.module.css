@@ -1,0 +1,107 @@
+/* =================================
+   Spinner de Carregamento
+   ================================= */
+.spinnerWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  /* O ícone do spinner usará a cor primária para destaque */
+  color: var(--primary);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.message {
+  font-weight: 500;
+  font-size: 1rem;
+  /* A mensagem de apoio usa a cor secundária, menos destacada */
+  color: var(--secondary);
+}
+
+/* =================================
+     Overlay (Tela Cheia)
+     ================================= */
+.overlay {
+  position: fixed;
+  inset: 0; /* Forma moderna de definir top, left, right, bottom como 0 */
+  /* Fundo semi-transparente usando a cor de fundo principal */
+  background-color: rgba(
+    var(--background-rgb),
+    0.8
+  ); /* Assumindo que você defina --background-rgb */
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.overlayContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  /* O conteúdo do overlay usa a cor de card para se destacar do fundo */
+  background-color: var(--card);
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+}
+
+/* =================================
+     Skeleton Loader (Esqueleto)
+     ================================= */
+.skeletonWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton {
+  /* A cor base do skeleton é a cor de fundo geral, para se misturar */
+  background-color: var(--background);
+  border-radius: 8px;
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+/* --- Variações do Skeleton --- */
+.skeleton.text {
+  height: 16px;
+}
+.skeleton.text:last-child {
+  width: 70%;
+}
+
+.skeleton.rect {
+  height: 100px;
+}
+
+.skeleton.circle {
+  border-radius: 50%;
+}

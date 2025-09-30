@@ -1,0 +1,148 @@
+/* Estilo inspirado na UI do Gemini */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--background); /* Fundo mais claro, como o do Gemini */
+  border-right: 1px solid var(--border);
+  transition: width 0.2s ease-in-out;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.collapsed {
+  width: 68px;
+}
+
+.expanded {
+  width: 256px;
+}
+
+/* --- Seções da Sidebar --- */
+.header {
+  padding: 0.75rem 1.25rem;
+  height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.menuButton {
+  background: none;
+  color: var(--secondary);
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.menuButton:hover {
+  background-color: var(--border);
+}
+
+.nav {
+  flex-grow: 1;
+  overflow-y: auto; /* Permite rolagem vertical se necessário */
+  overflow-x: hidden; /* Proíbe a rolagem horizontal bizarra */
+  padding: 0 0.75rem;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.footer {
+  flex-shrink: 0;
+  padding: 0.5rem 0.75rem 1rem 0.75rem;
+}
+
+/* --- Elementos de Conteúdo --- */
+
+.menuTitle {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--secondary);
+  padding: 1.5rem 0.75rem 0.5rem 0.75rem;
+  white-space: nowrap;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 0.75rem;
+  gap: 0.875rem;
+  color: var(--foreground);
+  font-weight: 500;
+  font-size: 0.875rem;
+  border-radius: 9999px; /* Links arredondados como no Gemini */
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.link:hover {
+  background-color: var(--border);
+}
+.link.active {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
+}
+.link.active:hover {
+  background-color: var(--primary);
+}
+
+.linkIcon {
+  flex-shrink: 0;
+}
+
+/* Lógica de expandir/recolher o texto */
+.linkText {
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
+}
+
+.expanded .linkText,
+.expanded .menuTitle span {
+  opacity: 1;
+}
+
+.hoverArea {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logoutButton {
+  /* Layout: Copia as propriedades do .link para garantir consistência */
+  display: flex;
+  align-items: center;
+  width: 100%; /* A correção principal: força a largura total */
+  height: 44px;
+  padding: 0 0.75rem;
+  gap: 0.875rem;
+  border-radius: 9999px;
+
+  /* Estilos específicos do botão */
+  background: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--secondary); /* Cor secundária no estado normal */
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.logoutButton:hover {
+  /* Efeito de perigo apenas no hover, para não chamar tanta atenção */
+  background-color: var(--destructive);
+  color: var(--primary-foreground); /* Texto branco */
+}

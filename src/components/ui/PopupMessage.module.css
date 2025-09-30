@@ -1,0 +1,223 @@
+/* =================================
+   Base para Popups e Modais
+   ================================= */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(
+    var(--background-rgb),
+    0.7
+  ); /* Fundo semi-transparente do tema */
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.popup {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: var(--card); /* Fundo do card */
+  color: var(--foreground); /* Cor do texto principal */
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid; /* A cor será definida pelas classes de estado */
+  position: relative;
+  overflow: hidden;
+}
+
+.modal {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* =================================
+     Posicionamento dos Toasts
+     ================================= */
+.toastBottomRight {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+}
+
+.toastBottomLeft {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 9999;
+}
+
+.toastCenter {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+}
+
+/* =================================
+     Estilos de Estado (Cores)
+     ================================= */
+.info {
+  border-color: var(--primary);
+}
+.info .iconWrapper {
+  color: var(--primary);
+}
+
+.success {
+  border-color: var(--success);
+}
+.success .iconWrapper {
+  color: var(--success);
+}
+
+/* As classes .warning, .danger, e .error usarão a mesma cor de perigo */
+.warning,
+.danger,
+.error {
+  border-color: var(--destructive);
+}
+.warning .iconWrapper,
+.danger .iconWrapper,
+.error .iconWrapper {
+  color: var(--destructive);
+}
+
+.confirm {
+  border-color: var(--secondary);
+}
+.confirm .iconWrapper {
+  color: var(--secondary);
+}
+
+/* =================================
+     Conteúdo Interno do Popup
+     ================================= */
+.iconWrapper {
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.content {
+  flex-grow: 1;
+}
+
+.title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.message {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--secondary); /* Cor secundária para o texto da mensagem */
+  line-height: 1.5;
+}
+
+/* --- Botões --- */
+.buttonWrapper {
+  margin-top: 1rem;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.button {
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.button:hover {
+  opacity: 0.9;
+}
+
+.confirmButton {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.cancelButton {
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  border: 1px solid var(--border);
+}
+
+.closeToastButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: var(--secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+}
+.closeToastButton:hover {
+  background-color: var(--background);
+}
+
+/* =================================
+     Animações
+     ================================= */
+.progressBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  /* Usa a cor de fundo com um pouco de transparência */
+  background-color: rgba(var(--foreground-rgb), 0.2);
+  width: 100%;
+  animation: shrink normal linear forwards;
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+.fadeOut {
+  animation: fadeOut 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
