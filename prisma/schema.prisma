@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// prisma/schema.prisma - VERSÃO COM LÓGICA DE DESCONTOS
 
 generator client {
   provider = "prisma-client-js"
@@ -13,14 +9,132 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TipoDesconto {
+  PERCENTUAL
+  VALOR_FIXO
+}
+
+model Orcamento {
+  id_orcamento     String        @id @default(uuid())
+  status           String        @default("pendente")
+  valor_total      Float
+  data_criacao     DateTime      @default(now())
+  data_atualizacao DateTime      @updatedAt
+  tipo_desconto    TipoDesconto?
+  valor_desconto   Float?
+
+  id_cliente String
+  cliente    Cliente         @relation(fields: [id_cliente], references: [id_cliente])
+  itens      ItemOrcamento[]
+  pedido     Pedido?
+  id_empresa String
+  empresa    Empresa         @relation(fields: [id_empresa], references: [id_empresa], onDelete: Cascade)
+
+  @@map("orcamentos")
+}
+
+model ItemOrcamento {
+  id_item_orcamento String @id @default(uuid())
+  nome_produto      String
+  quantidade        Int
+  preco_unitario    Float
+  preco_total       Float
+
+  // --- NOVOS CAMPOS DE DESCONTO POR ITEM ---
+  tipo_desconto  TipoDesconto?
+  valor_desconto Float?
+
+  id_orcamento String
+  orcamento    Orcamento @relation(fields: [id_orcamento], references: [id_orcamento], onDelete: Cascade)
+  id_produto   String
+  produto      Produto   @relation(fields: [id_produto], references: [id_produto])
+
+  @@map("itens_orcamento")
+}
+
+model Empresa {
+  id_empresa    String      @id @default(uuid())
+  nome_fantasia String
+  produtos      Produto[]
+  clientes      Cliente[]
+  orcamentos    Orcamento[]
+  pedidos       Pedido[]
+
+  @@map("empresas")
+}
+
+model UnidadeMedida {
+  id_unidade_medida String    @id @default(uuid())
+  nome              String
+  abreviacao        String    @unique
+  produtos          Produto[]
+
+  @@map("unidades_medida")
+}
+
+model MovimentoEstoque {
+  id_movimento_estoque String   @id @default(uuid())
+  tipo                 String
+  quantidade           Int
+  motivo               String?
+  data_movimento       DateTime @default(now())
+  id_produto           String
+  produto              Produto  @relation(fields: [id_produto], references: [id_produto])
+
+  @@map("movimentos_estoque")
+}
+
 model Produto {
-  id               String   @id @default(uuid())
-  nome             String
-  descricao        String?
-  preco            Float
-  estoque          Int
-  data_criacao     DateTime @default(now())
-  data_atualizacao DateTime @updatedAt
+  id_produto        String             @id @default(uuid())
+  nome              String
+  descricao         String?
+  data_criacao      DateTime           @default(now())
+  data_atualizacao  DateTime           @updatedAt
+  itensOrcamento    ItemOrcamento[]
+  historico_precos  Preco[]
+  movimentosEstoque MovimentoEstoque[]
+  id_unidade_medida String
+  unidade_medida    UnidadeMedida      @relation(fields: [id_unidade_medida], references: [id_unidade_medida])
+  id_empresa        String
+  empresa           Empresa            @relation(fields: [id_empresa], references: [id_empresa], onDelete: Cascade)
 
   @@map("produtos")
+}
+
+model Preco {
+  id_preco             String   @id @default(uuid())
+  valor                Float
+  data_inicio_validade DateTime @default(now())
+  id_produto           String
+  produto              Produto  @relation(fields: [id_produto], references: [id_produto], onDelete: Cascade)
+
+  @@map("precos")
+}
+
+model Cliente {
+  id_cliente       String      @id @default(uuid())
+  nome             String
+  whatsapp         String
+  data_criacao     DateTime    @default(now())
+  data_atualizacao DateTime    @updatedAt
+  orcamentos       Orcamento[]
+  id_empresa       String
+  empresa          Empresa     @relation(fields: [id_empresa], references: [id_empresa], onDelete: Cascade)
+
+  @@unique([id_empresa, whatsapp])
+  @@map("clientes")
+}
+
+model Pedido {
+  id_pedido        String    @id @default(uuid())
+  status_pagamento String    @default("pendente")
+  status_entrega   String    @default("separacao")
+  data_criacao     DateTime  @default(now())
+  data_atualizacao DateTime  @updatedAt
+  id_orcamento     String    @unique
+  orcamento        Orcamento @relation(fields: [id_orcamento], references: [id_orcamento])
+  id_empresa       String
+  empresa          Empresa   @relation(fields: [id_empresa], references: [id_empresa], onDelete: Cascade)
+
+  @@map("pedidos")
 }

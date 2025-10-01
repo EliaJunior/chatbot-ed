@@ -11,7 +11,7 @@
     "seed": "prisma db seed"
   },
   "prisma": {
-    "seed": "ts-node prisma/seed.ts"
+    "seed": "echo"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
